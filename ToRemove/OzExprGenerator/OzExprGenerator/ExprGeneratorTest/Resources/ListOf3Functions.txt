@@ -1,0 +1,10 @@
+﻿sort(A){if(A[0] > A[1]){ swap(A, 0, 1) } next:if(A[0] > A[2]){ swap(A, 0, 2) } next:if(A[1] > A[2]){ swap(A, 1, 2) }}
+sort(A){if(A[0] > A[1]){ swap(A, 0, 1) } next:if(A[1] > A[2]){ swap(A, 1, 2) next:if(A[0] > A[1]){ swap(A, 0, 1) } }}
+sort(A){if(A[0] > A[1]){ swap(A, 0, 1) } next:if(A[1] > A[2]){ swap(A, 1, 2) } next:if(A[0] > A[1]){ swap(A, 0, 1) }}
+sort(A){if(A[0] > A[1]){ swap(A, 0, 1) } next:if(A[1] > A[2]){ if(A[0] > A[2]){ swap(A, 0, 2) } next:swap(A, 1, 2) }}
+sort(A){if(A[0] > A[2]){ swap(A, 0, 2) } next:if(A[0] > A[1]){ swap(A, 0, 1) } next:if(A[1] > A[2]){ swap(A, 1, 2) }}
+sort(A){if(A[0] > A[2]){ swap(A, 0, 2) } next:if(A[1] > A[2]){ swap(A, 1, 2) } next:if(A[0] > A[1]){ swap(A, 0, 1) }}
+sort(A){if(A[1] > A[2]){ swap(A, 1, 2) } next:if(A[0] > A[1]){ swap(A, 0, 1) next:if(A[1] > A[2]){ swap(A, 1, 2) } }}
+sort(A){if(A[1] > A[2]){ swap(A, 1, 2) } next:if(A[0] > A[1]){ swap(A, 0, 1) } next:if(A[1] > A[2]){ swap(A, 1, 2) }}
+sort(A){if(A[1] > A[2]){ swap(A, 1, 2) } next:if(A[0] > A[2]){ swap(A, 0, 2) } next:if(A[0] > A[1]){ swap(A, 0, 1) }}
+sort(A){if(A[1] > A[2]){ swap(A, 1, 2) } next:if(A[0] > A[1]){ if(A[0] > A[2]){ swap(A, 0, 2) } next:swap(A, 0, 1) }}

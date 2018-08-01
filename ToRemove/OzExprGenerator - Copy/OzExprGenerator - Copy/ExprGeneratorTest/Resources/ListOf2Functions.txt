@@ -1,0 +1,1 @@
+﻿sort(A){block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, nil)}

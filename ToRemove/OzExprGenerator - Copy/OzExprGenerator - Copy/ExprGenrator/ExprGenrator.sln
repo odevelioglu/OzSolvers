@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExprGenerator", "ExprGenerator.csproj", "{D271BCDB-B6D6-4283-B6C1-CB6078543BBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExprGeneratorTest", "..\ExprGeneratorTest\ExprGeneratorTest.csproj", "{0B4FE654-E066-4270-839E-F5E4D47DB15A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D271BCDB-B6D6-4283-B6C1-CB6078543BBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D271BCDB-B6D6-4283-B6C1-CB6078543BBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D271BCDB-B6D6-4283-B6C1-CB6078543BBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D271BCDB-B6D6-4283-B6C1-CB6078543BBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B4FE654-E066-4270-839E-F5E4D47DB15A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B4FE654-E066-4270-839E-F5E4D47DB15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B4FE654-E066-4270-839E-F5E4D47DB15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B4FE654-E066-4270-839E-F5E4D47DB15A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1947D3EB-FB9E-499D-A351-56705035ECFE}
+	EndGlobalSection
+EndGlobal

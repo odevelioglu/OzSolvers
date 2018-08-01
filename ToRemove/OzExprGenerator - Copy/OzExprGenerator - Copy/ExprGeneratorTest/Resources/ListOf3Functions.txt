@@ -1,0 +1,10 @@
+﻿sort(A){block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, block(if(A[0] > A[2]){ block(swap(A, 0, 2), nil) }, block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, nil)))}
+sort(A){block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, nil)))}
+sort(A){block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, block(if(A[1] > A[2]){ block(swap(A, 1, 2), block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, nil)) }, nil))}
+sort(A){block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, block(if(A[1] > A[2]){ block(if(A[0] > A[2]){ block(swap(A, 0, 2), nil) }, block(swap(A, 1, 2), nil)) }, nil))}
+sort(A){block(if(A[0] > A[2]){ block(swap(A, 0, 2), nil) }, block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, nil)))}
+sort(A){block(if(A[0] > A[2]){ block(swap(A, 0, 2), nil) }, block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, nil)))}
+sort(A){block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, nil)))}
+sort(A){block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, block(if(A[0] > A[1]){ block(swap(A, 0, 1), block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, nil)) }, nil))}
+sort(A){block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, block(if(A[0] > A[2]){ block(swap(A, 0, 2), nil) }, block(if(A[0] > A[1]){ block(swap(A, 0, 1), nil) }, nil)))}
+sort(A){block(if(A[1] > A[2]){ block(swap(A, 1, 2), nil) }, block(if(A[0] > A[1]){ block(if(A[0] > A[2]){ block(swap(A, 0, 2), nil) }, block(swap(A, 0, 1), nil)) }, nil))}
