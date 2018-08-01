@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MySolver
 {
-    using System.Linq;
-    using System.Net.Http.Headers;
-    using System.Runtime.InteropServices.ComTypes;
-
-    using Microsoft.Win32;
-
     public static class MathHelper
     {
         public static double epsilon = 0.0001d;
@@ -143,5 +138,5 @@ namespace MySolver
             Array.Copy(list, start, ret, 0, length);
             return ret;
         }
-    }
+    }    
 }
