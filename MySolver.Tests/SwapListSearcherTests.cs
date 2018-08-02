@@ -278,16 +278,16 @@ namespace MySolver.Tests
         //    }
         //}
 
-        public static List<int> RotateOne(this List<int> list)
-        {
-            var copy = list.ToList();
+        //public static List<int> RotateOne(this List<int> list)
+        //{
+        //    var copy = list.ToList();
 
-            var tmp = copy.First();
-            copy.RemoveAt(0);
-            copy.Add(tmp);
+        //    var tmp = copy.First();
+        //    copy.RemoveAt(0);
+        //    copy.Add(tmp);
 
-            return copy;
-        }
+        //    return copy;
+        //}
 
         public static List<List<T>> ConsequitiveCombins<T>(this List<T> list)
         {
