@@ -119,7 +119,7 @@ namespace MySolver.Tests
 
             for (int i = 1; i <= listLength; i++)
             {
-                copy = copy.RotateOne();
+                copy.RotateOne();
 
                 if (swapped.SequenceEqual(copy))
                     return i;

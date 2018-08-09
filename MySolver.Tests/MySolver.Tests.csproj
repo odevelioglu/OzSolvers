@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MoveRightTests.cs" />
     <Compile Include="InferringTests\AllInferenceTests.cs" />
     <Compile Include="InferringTests\LinearRecurrenceTests.cs" />
     <Compile Include="InferringTests\LLLInfererTests.cs" />
