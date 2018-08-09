@@ -86,35 +86,102 @@ namespace MySolver.Tests
             holder.Init(5);
             holder.ApplyMoveRight(0, 1, new[] { 1, 4, 0, 0, 0 });
             holder.ApplyMoveRight(2, 3, new[] { 0, 0, 1, 4, 0 });
+                        
+            foreach(var move in holder.StateCollections.Last().StateChangeResults.Where(p => p.SortedCount == 8))
+            {
+                holder.ApplyMoveRight(move.A, move.B, move.Moves);
+                if (holder.StateCollections.Last().ShouldGoInner) throw new Exception("sd");
 
+                foreach (var move16 in holder.StateCollections.Last().StateChangeResults.Where(p => p.SortedCount == 16))
+                {
+                    holder.ApplyMoveRight(move16.A, move16.B, move16.Moves);
+                    if (holder.StateCollections.Last().ShouldGoInner) throw new Exception("sd");
 
+                    //var moves32 = holder.StateCollections.Last().StateChangeResults.Where(p => p.SortedCount == 32);
+                    //if(moves32.Any() && holder.StateCollections.Last().ShouldGoInner)
+                    //{
+
+                    //}
+
+                    foreach (var move32 in holder.StateCollections.Last().StateChangeResults.Where(p => p.SortedCount == 32))
+                    {
+                        holder.ApplyMoveRight(move32.A, move32.B, move32.Moves);
+                        if (holder.StateCollections.Last().ShouldGoInner) throw new Exception("sd");
+
+                        foreach (var move64 in holder.StateCollections.Last().StateChangeResults.Where(p => p.SortedCount == 64))
+                        {
+                            holder.ApplyMoveRight(move64.A, move64.B, move64.Moves);
+                            if (holder.StateCollections.Last().ShouldGoInner) throw new Exception("sd");
+
+                            var move120 = holder.StateCollections.Last().StateChangeResults.Where(p => p.SortedCount == 120);
+                            if(move120.Any())
+                            {
+
+                            }
+
+                            holder.StateCollections.RemoveAt(holder.StateCollections.Count - 1);
+                        }
+
+                        holder.StateCollections.RemoveAt(holder.StateCollections.Count - 1);
+                    }
+
+                    holder.StateCollections.RemoveAt(holder.StateCollections.Count - 1);
+                }
+
+                holder.StateCollections.RemoveAt(holder.StateCollections.Count - 1);
+            }
         }
 
         [TestMethod]
         public void StateHolder_testTMP()
         {
-            var lists = new List<int> { 4, 3, 2, 1 }.Permute().Select(p=>p.ToList()).ToList();
+            var lists = new List<int> { 5, 4, 3, 2, 1 }.Permute().Select(p=>p.ToList()).ToList();
 
             var counts = new List<int>();
 
             foreach(var list in lists)
             {
-                count = 0;
-                Sort2(list);
-                counts.Add(count);
-                Assert.IsTrue(IsSorted(list));
+                //count = 0;
+                Sort5(list);
+                //counts.Add(count);
+                //Assert.IsTrue(IsSorted(list));
             }
+
+            var count = lists.Count(IsSorted);
 
             var tmp = counts.GroupBy(p => p).Select(x => new { x.Key, count=x.Count() }).ToList();
         }
 
         private int count;
 
-        private void Sort(List<int> list)
+        private void Sort5(List<int> list)
+        {
+            if (list[0] > list[1]) //2
+            {
+                Swap(list, 0, 1);
+            }
+
+            if (list[2] > list[3]) //4
+            {
+                Swap(list, 2, 3);
+            }
+
+            if (list[3] > list[4]) //8
+            {
+                Swap(list, 3, 4);
+                if (list[2] > list[3]) //12
+                {                    
+                    Swap(list, 2, 3);
+                }
+            }
+
+            //Merge
+        }
+
+        private void Sort4(List<int> list)
         {
             if(list[0] > list[1]) //12
-            {
-                
+            {                
                 Swap(list, 0, 1);
             }
 
@@ -143,7 +210,7 @@ namespace MySolver.Tests
             }
         }
 
-        private void Sort2(List<int> list)
+        private void Sort4_2(List<int> list)
         {
             if (list[0] > list[1]) //12
             {
@@ -514,7 +581,7 @@ namespace MySolver.Tests
             if (Name == "rotate")
                 return "rotate(" + A + "," + B + "," + C +  ")" + " :" + SortedCount;
 
-            return "moveRight(" + A + "," + B + string.Join(",", Moves) + ")" + " :" + SortedCount;
+            return "moveRight(" + A + "," + B + ",{" + string.Join(",", Moves) + "})" + " :" + SortedCount;
         }
     }
 
@@ -545,17 +612,28 @@ namespace MySolver.Tests
             }
         }
 
+        public static List<StateChangeResult> Cache;
+
         public static IEnumerable<StateChangeResult> GenerateMoveRight(int len)
         {
-            for (var i = 0; i < len - 1; i++)
+            if(Cache == null)
             {
-                for (var m = i + 1; m < len; m++)
+                Cache = new List<StateChangeResult>();
+                for (var i = 0; i < len - 1; i++)
                 {
-                    foreach(var par in MoveRightParamGenerator.GetParams(len))
+                    for (var m = i + 1; m < len; m++)
                     {
-                        yield return new StateChangeResult("moveRight", i, m, par);
-                    }                    
+                        foreach(var par in MoveRightParamGenerator.GetParams(len))
+                        {
+                            Cache.Add( new StateChangeResult("moveRight", i, m, par) );
+                        }                    
+                    }
                 }
+            }
+
+            foreach(var s in Cache)
+            {
+                yield return new StateChangeResult(s.Name, s.A, s.B, s.Moves);
             }
         }
 
