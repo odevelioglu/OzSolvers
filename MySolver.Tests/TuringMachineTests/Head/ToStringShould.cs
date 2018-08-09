@@ -1,11 +1,11 @@
-﻿namespace TuringMachine.Tests.Head
-{
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
-    [TestClass]
+namespace TuringMachine.Tests.Head
+{
+    [TestFixture]
     public class ToStringShould
     {
-        [TestMethod]
+        [Test]
         public void PrintOutTape()
         {
             var data = new[] {'a', 'b', 'c', 'd', 'c', 'b', 'a'};

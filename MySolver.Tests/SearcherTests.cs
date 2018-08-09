@@ -1,21 +1,21 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using log4net.Config;
 using System.Diagnostics;
+using NUnit.Framework;
 
 namespace MySolver.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SearcherTests
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Searcher));
 
         private Stopwatch watch = new Stopwatch();
         
-        [TestInitialize]
+        [OneTimeSetUp]
         public void Init()
         {
             //if(File.Exists("Log.log"))
@@ -26,7 +26,7 @@ namespace MySolver.Tests
             watch.Start();
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
             //1+2+3+...+n= 
@@ -44,7 +44,7 @@ namespace MySolver.Tests
             Assert.AreEqual("((n / 2) * (n + 1))", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod2()
         {
             // 1+3+5+...2n-1
@@ -63,7 +63,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(n * n)", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod3()
         {
             // 2+4+6...+2n=
@@ -82,7 +82,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(n * (n + 1))", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod4()
         {
             //SERIE GEOMETRIQUE
@@ -116,7 +116,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(((1 / q) - (q ^ n)) / ((1 - q) / q))", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod5()
         {
             // (1 + a) ^ n = Sum(k: 0..n) C(k,n) a^k
@@ -150,7 +150,7 @@ namespace MySolver.Tests
             Assert.AreEqual("((1 + q) ^ n)", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod6()
         {
             // (-1)^n / n => n-> inf = 
@@ -181,8 +181,8 @@ namespace MySolver.Tests
             Assert.AreEqual("(log(2) / -(1))", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]        
+        [Ignore("")]
         public void TestMethodPi()
         {
             // n:0..inf (-1)^n / (2*n + 1) = Pi / 4
@@ -217,8 +217,8 @@ namespace MySolver.Tests
             Assert.AreEqual("", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
-        [Ignore]
+        [Test]
+        [Ignore("")]
         public void TestMethodSemantic()
         {
             var funcs = new List<BinaryFunction> { Commons.div, Commons.sub, };
@@ -241,7 +241,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(((1 / q) - (q ^ n)) / ((1 - q) * (1 / q)))", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestSemEq()
         {
             var leftcons = new Node(Commons.c1, null, null);
@@ -258,7 +258,7 @@ namespace MySolver.Tests
             Assert.IsTrue(root.SemEq(root2));
         }
         
-        [TestMethod]
+        [Test]
         public void TestPermut()
         {
             var queue = new Queue<int[]>();
@@ -271,7 +271,7 @@ namespace MySolver.Tests
             Assert.AreEqual(permuted.Count, 12);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethodCatalanNumbers()
         {
             // C(n) = (2n)!/(n!(n+1)!). 

@@ -1,11 +1,11 @@
-﻿namespace TuringMachine.Tests.Head
-{
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
-    [TestClass]
+namespace TuringMachine.Tests.Head
+{
+    [TestFixture]
     public class ReadShould
     {
-        [TestMethod]
+        [Test]
         public void ReturnTapeHead()
         {
             var data = new[] { 'a', 'b', 'c' };

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySolver.Inferring;
+using NUnit.Framework;
 
 namespace MySolver.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SimplifierTests
     {
         private BinaryFunction div = new BinaryFunction("div", vars => vars[0] / vars[1], 2);
@@ -14,7 +14,7 @@ namespace MySolver.Tests
         private Node c2 = new Node(new Constant(2), null, null);
         private Node c1 = new Node(new Constant(1), null, null);
         
-        [TestMethod]
+        [Test]
         public void TestMethod13()
         {
             var fact1 = new Node(this.fac, c1, null);
@@ -25,7 +25,7 @@ namespace MySolver.Tests
             Assert.AreEqual("2", simplified.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod2()
         {
             var inferer = new DifferenceTableInferer();
@@ -39,7 +39,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(((n + (((((n - 1) * (n - 2)) * (n - 3)) / (3)!) * -3)) + ((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) / (4)!) * 9)) + (((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) * (n - 5)) / (5)!) * -20))", simplified.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod3()
         {
             var inferer = new DifferenceTableInferer();

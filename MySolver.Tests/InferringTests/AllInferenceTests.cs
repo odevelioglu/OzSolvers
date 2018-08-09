@@ -2,7 +2,7 @@
 using System.Linq;
 using MySolver.Inferring;
 using NUnit.Framework;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
 
 namespace MySolver.Tests.InferringTests
 {

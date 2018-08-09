@@ -1,17 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MySolver.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MoveRightTests
     {
-        [TestMethod]
+        [Test]
         public void MoveRight_ShouldConvertAnyListToAnyOther()
         {
             var parameters = MoveRightParamGenerator.GetParams(4).ToList();
@@ -28,7 +25,7 @@ namespace MySolver.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void MoveRight_Misc()
         {
             Assert.IsTrue(MoveRightParamGenerator.GetParams(4).Count() == 24);

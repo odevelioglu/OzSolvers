@@ -1,11 +1,11 @@
-﻿namespace TuringMachine.Tests.Head
-{
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
-    [TestClass]
+namespace TuringMachine.Tests.Head
+{
+    [TestFixture]
     public class WriteShould
     {
-        [TestMethod]
+        [Test]
         public void ReturnNewTapeWithUpdatedHead()
         {
             var data = new[] {'a', 'b', 'c'};
@@ -16,7 +16,7 @@
             Assert.AreEqual(expected, result.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void NotMutateOriginalData()
         {
             var data = new[] { 'a', 'b', 'c' };

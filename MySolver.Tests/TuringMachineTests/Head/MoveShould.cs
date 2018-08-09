@@ -1,15 +1,14 @@
 ﻿namespace TuringMachine.Tests.Head
 {
+    using NUnit.Framework;
     using System.Collections.Generic;
 
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-    [TestClass]
+    [TestFixture]
     public class MoveHeadShould
     {
         private static readonly IEnumerable<char> Data = new[] { 'a', 'b', 'c', 'd', 'e' };
 
-        [TestMethod]
+        [Test]
         public void MoveHeadLeftWithLeftDirection()
         {
             const string expected = "Head: ab(c)de";
@@ -18,7 +17,7 @@
             Assert.AreEqual(expected, result.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void MoveHeadRightWithRightDirection()
         {
             const string expected = "Head: ab(c)de";
@@ -27,7 +26,7 @@
             Assert.AreEqual(expected, result.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void NotMoveWithNoMove()
         {
             const string expected = "Head: ab(c)de";

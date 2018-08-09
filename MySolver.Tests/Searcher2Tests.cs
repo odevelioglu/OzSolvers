@@ -1,23 +1,20 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Linq;
 using log4net;
 using log4net.Config;
 using System.Diagnostics;
+using NUnit.Framework;
 
 namespace MySolver.Tests
 {
-    using System.Net;
-
-    [TestClass]
+    [TestFixture]
     public class Searcher2Tests
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(Searcher));
 
         private Stopwatch watch = new Stopwatch();
         
-        [TestInitialize]
+        [OneTimeSetUp]
         public void Init()
         {
             //if(File.Exists("Log.log"))
@@ -28,7 +25,7 @@ namespace MySolver.Tests
             watch.Start();
         }
 
-        [TestMethod]
+        [Test]
         public void TestPeasantMultip()
         {
             // (10^m a + b) (10^m c + d) = 10^2m ac + 10^m (bc + ad) + bd 
@@ -65,7 +62,7 @@ namespace MySolver.Tests
             //Assert.AreEqual("((10 ^ 2) * (a * c)) + (10 * ((b * c) + (a * d))) + (b * d) ", searcher.FinalResults[0].ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestPeasantMultip_Half()
         {
             // (10^m a + b) (10^m c + d) = 10^2m ac + 10^m (bc + ad) + bd 

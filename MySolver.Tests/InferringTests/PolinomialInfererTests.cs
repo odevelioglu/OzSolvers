@@ -1,14 +1,14 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using MySolver.Inferring;
+using NUnit.Framework;
 
 namespace MySolver.Tests.InferringTests
 {
-    [TestClass]
+    [TestFixture]
     public class PolinomialInfererTests
     {
-        [TestMethod]
+        [Test]
         public void PolinomialInfererDegree0()
         {
             var inferer = new PolinomialInferer();
@@ -17,7 +17,7 @@ namespace MySolver.Tests.InferringTests
             Assert.AreEqual("7", poli.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void PolinomialInfererDegree1()
         {
             var func = new Func<int, double>(n => 3 + 2*n);
@@ -29,7 +29,7 @@ namespace MySolver.Tests.InferringTests
             Assert.AreEqual("3 + 2n", poli.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void PolinomialInfererDegree2()
         {
             var func = new Func<int, double>(n => 1 + 2 * n + 3 * Math.Pow(n, 2));
@@ -41,7 +41,7 @@ namespace MySolver.Tests.InferringTests
             Assert.AreEqual("1 + 2n + 3n^2", poli.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void PolinomialInfererDegree2Series()
         {
             // 1+3+5+...2n-1 = n^2

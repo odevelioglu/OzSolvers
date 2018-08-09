@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace TuringMachine.Tests.Machine
 {
-    [TestClass]
+    [TestFixture]
     public class RunShould
     {
-        [TestMethod]
+        [Test]
         public void AddTwoNumbers()
         {
             const string expected = "Head: (_)11111__";
@@ -18,7 +18,7 @@ namespace TuringMachine.Tests.Machine
             Assert.AreEqual(expected, result.Head.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void MultiplyTwoNumbers()
         {
             const string expected = "Head: ______(_)111111";
@@ -31,7 +31,7 @@ namespace TuringMachine.Tests.Machine
             Assert.AreEqual(expected, result.Head.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void ReturnOnError()
         {
             const string expected = "Head: (1)1_11";

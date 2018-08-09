@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
 namespace TuringMachine.Tests.Machine
 {
-    [TestClass]
+    [TestFixture]
     public class StepShould
     {
-        [TestMethod]
+        [Test]
         public void GoIntoErrorStateIfNoMatchingTransitions()
         {
             var sut = new TuringMachine.Machine(
@@ -17,7 +17,7 @@ namespace TuringMachine.Tests.Machine
             Assert.AreEqual(State.Error, result.State);
         }
 
-        [TestMethod]
+        [Test]
         public void ReturnThisIfHalted()
         {
             var sut = new TuringMachine.Machine(
@@ -29,7 +29,7 @@ namespace TuringMachine.Tests.Machine
             Assert.AreEqual(State.Halt, result.State);
         }
 
-        [TestMethod]
+        [Test]
         public void ReturnThisIfError()
         {
             var sut = new TuringMachine.Machine(
@@ -41,7 +41,7 @@ namespace TuringMachine.Tests.Machine
             Assert.AreEqual(State.Error, result.State);
         }
 
-        [TestMethod]
+        [Test]
         public void MakeTransition()
         {
             var sut = new TuringMachine.Machine(
@@ -54,7 +54,7 @@ namespace TuringMachine.Tests.Machine
             Assert.AreEqual('1', result.Head.Read());
         }
 
-        [TestMethod]
+        [Test]
         public void WriteTransition()
         {
             var sut = new TuringMachine.Machine(

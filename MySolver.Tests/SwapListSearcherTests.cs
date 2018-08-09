@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MySolver.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SwapListSearcherTests
     {
-        [TestMethod]
+        [Test]
         public void Swap_GetAllPossibleSwaps_test()
         {
             var expected = new List<SwapFunc> { new SwapFunc(1, 2) };
@@ -23,7 +19,7 @@ namespace MySolver.Tests
             Assert.IsTrue(result.ToList().IsEqualTo(expected));
         }
 
-        [TestMethod]
+        [Test]
         public void Swap_FindMininums_test1()
         {
             var expected = new List<SwapFunc> { new SwapFunc(1, 2) };
@@ -35,7 +31,7 @@ namespace MySolver.Tests
             Assert.IsTrue(result.Any(p=>p.IsEqualTo(expected)));
         }
 
-        [TestMethod]
+        [Test]
         public void Swap_FindMininums_test2()
         {
             var expected1 = new List<SwapFunc> { new SwapFunc(0, 3), new SwapFunc(1, 2) };
@@ -49,7 +45,7 @@ namespace MySolver.Tests
             Assert.IsTrue(result.Any(p => p.IsEqualTo(expected2)));
         }
 
-        [TestMethod]
+        [Test]
         public void Swap_FindMininums_test3()
         {
             var searcher = new SwapListSearcher();
@@ -58,7 +54,7 @@ namespace MySolver.Tests
             Assert.IsTrue(result.Count == 6);            
         }
 
-        [TestMethod]
+        [Test]
         public void Swap_Consequtive()
         {            
             var list = new List<int> { 4, 3, 1, 2 };
@@ -67,7 +63,7 @@ namespace MySolver.Tests
             
         }
 
-        [TestMethod]
+        [Test]
         public void Swap_WriteToFile()
         {
             var searcher = new SwapListSearcher();

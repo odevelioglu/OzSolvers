@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-
 using ExprGenrator;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace ExprGeneratorTest
 {
-    [TestClass]
+    [TestFixture]
     public class FitnessTests
     {
-        [TestMethod]
+        [Test]
         public void FitnessListOf3()
         {
             var list = new[] { 9, 5, 2 };
@@ -28,7 +26,7 @@ namespace ExprGeneratorTest
             Assert.IsTrue(expectedFit.SequenceEqual(fits));
         }
 
-        [TestMethod]
+        [Test]
         public void FitnessListOf4()
         {
             var list = new[] { 9, 5, 2, 1 };
@@ -46,7 +44,7 @@ namespace ExprGeneratorTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void FitnessListOf4Swaptest()
         {
             var list = new[] { 9, 5, 2, 1 };
@@ -95,7 +93,7 @@ namespace ExprGeneratorTest
         // use array instead of List 
         // use statetest instead of fitness.
 
-        [TestMethod]
+        [Test]
         public void StateTest()
         {
             var theList = new[] { 9, 5, 2, 1 };
@@ -168,7 +166,7 @@ namespace ExprGeneratorTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void FitnessTestExpr()
         {
             var theList = new[] { 9, 5, 2, 1 };
@@ -220,7 +218,7 @@ namespace ExprGeneratorTest
                     original.SequenceEqual(new[] { 2, 5, 9, 1 }) ||
                     original.SequenceEqual(new[] { 2, 5, 1, 9 }))
                 {
-                    Assert.ThrowsException<Exception>(() => Sort(list), "Ex");
+                    Assert.Catch<Exception>(() => Sort(list), "Ex");
                 }
                 else
                 {
@@ -230,7 +228,7 @@ namespace ExprGeneratorTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ExprGenerator()
         {
             var theList = new[] { 9, 5, 2, 1 };

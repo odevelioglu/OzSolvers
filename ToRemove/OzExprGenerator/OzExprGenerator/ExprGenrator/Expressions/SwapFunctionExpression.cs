@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace ExprGenrator
@@ -103,10 +102,10 @@ namespace ExprGenrator
                     return false;
                 }
             }
-            else
-            {
+            //else
+            //{
                 return false;
-            }
+            //}
         }
 
         public static HashSet<string> stateCache = new HashSet<string>();

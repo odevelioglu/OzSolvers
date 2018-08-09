@@ -1,15 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace MySolver.Tests.InferringTests
+﻿namespace MySolver.Tests.InferringTests
 {
     using System;
     using System.Linq;
 
     using MySolver.Inferring;
+    using NUnit.Framework;
 
-    [TestClass]
+    [TestFixture]
     public class LinearRecurrenceTests
     {
-        [TestMethod]
+        [Test]
         public void Linear()
         {
             var tmp1 = Enumerable.Range(0, 10).Select(n=>Rec(n)).ToArray();

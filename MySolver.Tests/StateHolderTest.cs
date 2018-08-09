@@ -1,17 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MySolver.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class StateHolderTest
     {
-        [TestMethod]
+        [Test]
         public void StateHolder_testListOf3()
         {
             var holder = new StateHolder();
@@ -26,7 +24,7 @@ namespace MySolver.Tests
             Assert.IsTrue(holder.StateCollections.Last().SortedCount == 6);
         }
 
-        [TestMethod]
+        [Test]
         public void StateHolder_testListOf4()
         {
             var holder = new StateHolder();
@@ -43,7 +41,7 @@ namespace MySolver.Tests
             Assert.IsTrue(holder.StateCollections.Last().SortedCount == 24);
         }
 
-        [TestMethod]
+        [Test]
         public void StateHolder_testListOf4_withMoveRight()
         {
             var holder = new StateHolder();
@@ -60,7 +58,7 @@ namespace MySolver.Tests
             Assert.IsTrue(holder.StateCollections.Last().SortedCount == 24);
         }
 
-        [TestMethod]
+        [Test]
         public void StateHolder_testListOf4BubleSort()
         {
             // Restriction "double the correct results" leads to quicker sort
@@ -78,7 +76,7 @@ namespace MySolver.Tests
             Assert.IsTrue(holder.StateCollections.Last().SortedCount == 24);
         }
 
-        [TestMethod]
+        [Test]
         public void StateHolder_testListOf5()
         {
             var holder = new StateHolder();
@@ -132,7 +130,7 @@ namespace MySolver.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StateHolder_testTMP()
         {
             var lists = new List<int> { 5, 4, 3, 2, 1 }.Permute().Select(p=>p.ToList()).ToList();
@@ -283,7 +281,7 @@ namespace MySolver.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void StateHolder_testListOf6()
         {
             var holder = new StateHolder();
@@ -304,7 +302,7 @@ namespace MySolver.Tests
 
         }
 
-        [TestMethod]
+        [Test]
         public void StateHolder_RotateTest()
         {
             var state = new State(new[] { 4, 3, 2, 1 });             

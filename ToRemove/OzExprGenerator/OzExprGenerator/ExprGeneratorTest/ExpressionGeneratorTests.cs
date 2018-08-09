@@ -4,14 +4,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using ExprGenrator;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace ExprGeneratorTest
 {
-    [TestClass]
+    [TestFixture]
     public class ExpressionGeneratorTests
     {
-        [TestMethod]
+        [Test]
         public void SortListOf1()
         {
             var theList = new[] { 9 };
@@ -22,7 +22,7 @@ namespace ExprGeneratorTest
             Assert.IsTrue(expected.SequenceEqual(str));
         }
 
-        [TestMethod]
+        [Test]
         public void SortListOf2()
         {
             var theList = new[] { 9, 5 };
@@ -33,7 +33,7 @@ namespace ExprGeneratorTest
             Assert.IsTrue(expected.SequenceEqual(str));
         }
 
-        [TestMethod]
+        [Test]
         public void SortListOf3()
         {
             var theList = new[] { 9, 5, 3 };
@@ -80,7 +80,7 @@ namespace ExprGeneratorTest
             return solutions;
         }
 
-        [TestMethod]
+        [Test]
         public void SortStatefullListOf1()
         {
             var theList = new[] { 9 };
@@ -97,7 +97,7 @@ namespace ExprGeneratorTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SortStatefullListOf2()
         {
             var theList = new[] { 9, 5 };
@@ -114,7 +114,7 @@ namespace ExprGeneratorTest
             }
         }
 
-        [TestMethod]
+        [Test]
         public void SortStatefullListOf3()
         {
             var theList = new[] { 9, 5, 3 };
@@ -132,7 +132,7 @@ namespace ExprGeneratorTest
             }
         }
 
-        [TestMethod]
+        [Test]
         //[Ignore]
         public void SortStatefullListOf4()
         {

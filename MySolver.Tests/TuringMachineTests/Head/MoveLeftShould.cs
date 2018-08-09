@@ -1,11 +1,11 @@
-﻿namespace TuringMachine.Tests.Head
-{
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 
-    [TestClass]
+namespace TuringMachine.Tests.Head
+{
+    [TestFixture]
     public class MoveHeadLeftShould
     {
-        [TestMethod]
+        [Test]
         public void MoveLeftWhenAtZeroHeadPostion()
         {
             const string expected = "Head: (_)abcd";
@@ -14,7 +14,7 @@
             Assert.AreEqual(expected, result.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void MoveToTheLeft()
         {
             var data = new[] {'a', 'b', 'c', 'd', 'e'};

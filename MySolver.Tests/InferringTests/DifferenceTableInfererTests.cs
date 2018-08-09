@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MySolver.Inferring;
+using NUnit.Framework;
 
 namespace MySolver.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class DifferenceTableInfererTests
     {
         DifferenceTableInferer inferer = new DifferenceTableInferer();
 
-        [TestMethod]
+        [Test]
         public void TestMethod1()
         {
             //https://www.algebra.com/algebra/homework/Sequences-and-series/Sequences-and-series.faq.question.155130.html
@@ -22,7 +22,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(((((9 + (((n - 1) / (1)!) * 64)) + ((((n - 1) * (n - 2)) / (2)!) * 104)) + (((((n - 1) * (n - 2)) * (n - 3)) / (3)!) * 48)) + ((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) / (4)!) * 0)) + (((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) * (n - 5)) / (5)!) * 0))", node.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod2()
         {
             var sequence = new[] { 1, 2, 3, 1, 2, 1 };
@@ -33,7 +33,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(((((1 + (((n - 1) / (1)!) * 1)) + ((((n - 1) * (n - 2)) / (2)!) * 0)) + (((((n - 1) * (n - 2)) * (n - 3)) / (3)!) * -3)) + ((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) / (4)!) * 9)) + (((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) * (n - 5)) / (5)!) * -20))", node.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethodCatalan()
         {
             // =(2n)!/(n!(n+1)!)
@@ -48,7 +48,7 @@ namespace MySolver.Tests
             Assert.AreEqual("(((((1 + (((n - 1) / (1)!) * 1)) + ((((n - 1) * (n - 2)) / (2)!) * 0)) + (((((n - 1) * (n - 2)) * (n - 3)) / (3)!) * -3)) + ((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) / (4)!) * 9)) + (((((((n - 1) * (n - 2)) * (n - 3)) * (n - 4)) * (n - 5)) / (5)!) * -20))", node.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void TestMethod3()
         {
             //1+2+3+...+n= 
