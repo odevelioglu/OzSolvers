@@ -48,7 +48,7 @@ namespace ExprGeneratorTest
 
         private static List<BaseFunction> GenerateDepthFirst(int[] theList)
         {
-            var context = Context.CreateDefault(theList);
+            var context = Context.CreateDefaultForSort(theList);
             var count = 1;
             var watch = new Stopwatch();
             watch.Start();
@@ -155,7 +155,7 @@ namespace ExprGeneratorTest
 
         private static List<BaseFunction> GenerateStateFull(int[] theList, int expectedTotalGenerated)
         {
-            var context = Context.CreateDefault(theList);
+            var context = Context.CreateDefaultForSort(theList);
             var count = 1;
             var watch = new Stopwatch();
             watch.Start();

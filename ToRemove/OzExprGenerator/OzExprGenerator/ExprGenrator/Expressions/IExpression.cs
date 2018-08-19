@@ -24,6 +24,8 @@ namespace ExprGenrator
         public int SwapCount;
         public int IfExecCount;
 
+        public int ConsecutiveSwapCount;
+
         //public List<int[]>[] StateHistory;
         public List<int[]> States = new List<int[]>();
         public List<int> Scope = new List<int>();
@@ -42,6 +44,7 @@ namespace ExprGenrator
             this.SwapCount = info.SwapCount;
             this.IfDepth = info.IfDepth;
             this.IfExecCount = info.IfExecCount;
+            //this.ConsecutiveSwapCount = info.ConsecutiveSwapCount;
         }
 
         public void SetStates(FuncInfo info)

@@ -144,7 +144,7 @@ namespace ExprGenrator
         {
             var str = new StringBuilder();
 
-            var round = new Func<int, decimal>(p => Math.Round((decimal)p / MathTools.Fact(theList.Length), 3));
+            var round = new Func<int, decimal>(p => Math.Round((decimal)p / context.InputStates.Count, 3));
             var pad = new Func<object, string>(o => o.ToString().PadRight(12));
 
             var counts = func.CountAll();
@@ -168,10 +168,10 @@ namespace ExprGenrator
             str.AppendLine("IfDepth:" + func.GetIfDepth());
             str.AppendLine("TMP IfExec:" + func.Info.IfExecCount);
 
-            if (func.CountFunctions(theList, context).ContainsKey("if") && func.Info.IfExecCount != func.CountFunctions(theList, context)["if"])
-            {
-                throw new Exception("Counts wrong");
-            }
+            //if (func.CountFunctions(theList, context).ContainsKey("if") && func.Info.IfExecCount != func.CountFunctions(theList, context)["if"])
+            //{
+            //    throw new Exception("Counts wrong");
+            //}
 
             return str.ToString();
         }

@@ -233,7 +233,7 @@ namespace ExprGeneratorTest
         {
             var theList = new[] { 9, 5, 2, 1 };
 
-            var context = Context.CreateDefault(theList);
+            var context = Context.CreateDefaultForSort(theList);
 
             var gen = new ExpressionGenerator(context);
 

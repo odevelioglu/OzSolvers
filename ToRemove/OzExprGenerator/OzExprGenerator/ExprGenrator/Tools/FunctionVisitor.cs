@@ -146,6 +146,23 @@ namespace ExprGenrator
             return ret;
         }
 
+        public static int[] GetParams(this IfElseFunction ifFunc)
+        {
+            var ret = new int[2];
+
+            var thisGt = ifFunc.ParamValues[0] as GreaterThanFunction;
+
+            if (thisGt == null) return null;
+
+            var thisleft = thisGt.ParamValues[0].ParamValues[1] as IntConstant;
+
+            ret[0] = thisleft.Value;
+            var thisright = thisGt.ParamValues[1].ParamValues[1] as IntConstant;
+            ret[1] = thisright.Value;
+
+            return ret;
+        }
+
         public static bool Equivalent(this SwapFunction one, SwapFunction another)
         {
             if (one.ParamValues[1] == another.ParamValues[1] && one.ParamValues[2] == another.ParamValues[2])

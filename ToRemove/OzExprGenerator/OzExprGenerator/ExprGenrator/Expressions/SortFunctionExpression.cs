@@ -30,13 +30,7 @@ namespace ExprGenrator
         {
             var sortFunc = new SortFunction { Parent = parentFunc };
             
-            var list = ((ListConstant)context.List).Value;
-            var states = new List<int[]>();
-            foreach (var perm in list.Permute())
-            {
-                states.Add(perm.ToArray());
-            }
-            sortFunc.Info.States = states;
+            sortFunc.Info.States = context.InputStates;
             //sortFunc.Info.StateHistory = new List<int[]>[states.Count];
             //for (var i = 0; i < states.Count; i++) sortFunc.Info.StateHistory[i] = new List<int[]>();
             //sortFunc.Info.HistorizeState(states);
@@ -47,7 +41,7 @@ namespace ExprGenrator
 
             yield return sortFunc;
 
-            foreach (var voidFunc in context.VoidExpressions.SelectMany(p => p.GenerateStateFull(context, sortFunc, false))) // TODO: sort specific
+            foreach (var voidFunc in context.VoidExpressions.OfType<IfElseFunctionExpression>().SelectMany(p => p.GenerateStateFull(context, sortFunc, false))) // TODO: sort specific
             {
                 sortFunc.ParamValues[1] = voidFunc;
                 sortFunc.Info.Set(voidFunc.Info);
@@ -59,7 +53,7 @@ namespace ExprGenrator
                 sortFunc.Info.SwapCount = 0;
                 sortFunc.Info.IfDepth = 0;
                 sortFunc.Info.IfExecCount = 0;
-                sortFunc.Info.States = states;
+                sortFunc.Info.States = context.InputStates;
                 //sortFunc.Info.StateHistory = new List<int[]>[states.Count];
                 //for (var i = 0; i < states.Count; i++) sortFunc.Info.StateHistory[i] = new List<int[]>();
                 //sortFunc.Info.HistorizeState(states);

@@ -22,7 +22,8 @@ namespace ExprGenrator
     public class SwapFunctionExpression : IExpression
     {
         public int Max { get; set; } = int.MaxValue;
-        public SwapFunctionExpression(int max)
+        public int MaxConsecutive { get; set; }
+        public SwapFunctionExpression(int max = int.MaxValue)
         {
             this.Max = max;
         }
@@ -112,7 +113,7 @@ namespace ExprGenrator
 
         public IEnumerable<BaseFunction> GenerateStateFull(Context context, BaseFunction generatorFunc, bool isNext)
         {
-            if (generatorFunc.Info.SwapCount >= this.Max) yield break;
+            if (generatorFunc.Info.SwapCount >= this.Max) yield break;            
 
             var swapFunc = isNext ? new SwapFunction(generatorFunc.Parent ?? generatorFunc) { Before = generatorFunc } : new SwapFunction(generatorFunc);
 
@@ -120,6 +121,14 @@ namespace ExprGenrator
             swapFunc.Info.SwapCount++;
             swapFunc.Info.IfDepth = swapFunc.Parent.Info.IfDepth;
             swapFunc.Info.Scope = swapFunc.Parent.Info.Scope;
+            swapFunc.Info.ConsecutiveSwapCount = 1;
+            if (swapFunc.Before is SwapFunction)
+            {
+                if (swapFunc.Before.Info.ConsecutiveSwapCount >= MaxConsecutive)
+                    yield break;
+
+                swapFunc.Info.ConsecutiveSwapCount = swapFunc.Before.Info.ConsecutiveSwapCount + 1;                
+            }
 
             swapFunc.ParamValues[0] = context.List;
 
@@ -152,6 +161,15 @@ namespace ExprGenrator
                 { 
                     var paremas = iffparent.GetParams();
                     if (paremas!=null &&(paremas[0] != par0 || paremas[1] != par1))
+                    {
+                        swapFunc.Next = null;
+                        continue;
+                    }
+                }
+                else if (generatorFunc is IfElseFunction ifElseparent)
+                {
+                    var paremas = ifElseparent.GetParams();
+                    if (paremas != null && (paremas[0] != par0 || paremas[1] != par1))
                     {
                         swapFunc.Next = null;
                         continue;

@@ -67,9 +67,9 @@ namespace ExprGenrator
             
             var writer = File.AppendText("Generated.txt");
             
-            var theList = new[] { 9, 5, 3, 2 }; // list of 4: 12 results for buble sort
-
-            var context = Context.CreateDefault(theList);
+            var theList = new[] { 4, 3, 2, 1 }; // list of 4: 12 results for buble sort
+ 
+            var context = Context.CreateDefaultForMergeIfElse(theList);
             
             GenerateDepthFirst(writer, context, theList);
             

@@ -8,11 +8,10 @@ namespace ExprGenrator
     public class IfElseFunctionExpression : IExpression
     {
         public int Max { get; set; } = int.MaxValue;
-        public IfElseFunctionExpression(int max)
-        {
-            this.Max = max;
-        }
-
+        public int MaxDepth { get; set; } = int.MaxValue;
+        public int MaxExec { get; set; } = int.MaxValue;
+        public int MaxConsecutive { get; set; }
+        
         public List<Type> ParameterTypes => new List<Type> { typeof(bool), typeof(IExpression) };
 
         public Type ReturnType => typeof(void);
@@ -71,14 +70,29 @@ namespace ExprGenrator
         public IEnumerable<BaseFunction> GenerateStateFull(Context context, BaseFunction generatorFunc, bool isNext)
         {
             // reject(P,c)
-            if (generatorFunc.Info.IfCount >= this.Max) yield break;
-            if (generatorFunc.Info.SwapCount >= this.Max) yield break;
+            if (generatorFunc.Info.IfCount >= this.Max)
+                yield break;
+            //if (generatorFunc.Info.SwapCount >= this.Max) yield break; //??
 
             var ifFunc = isNext ? new IfElseFunction(generatorFunc.Parent) { Before = generatorFunc } : new IfElseFunction(generatorFunc);
             // Get the scope from parent. Get the states from generator
             ifFunc.Info.Set(generatorFunc.Info);
             ifFunc.Info.IfCount++;
-            
+            ifFunc.Info.IfDepth = ifFunc.Parent.Info.IfDepth + 1;
+            if (ifFunc.Info.IfDepth > this.MaxDepth) yield break;
+
+            ifFunc.Info.IfExecCount = generatorFunc.Info.IfExecCount + ifFunc.Parent.Info.Scope.Count;
+            if (ifFunc.Info.IfExecCount > this.MaxExec) yield break;
+
+            ifFunc.Info.ConsecutiveSwapCount = 1;
+            if (ifFunc.Before is IfElseFunction)
+            {
+                if (ifFunc.Before.Info.ConsecutiveSwapCount >= MaxConsecutive)
+                    yield break;
+
+                ifFunc.Info.ConsecutiveSwapCount = ifFunc.Before.Info.ConsecutiveSwapCount + 1;
+            }
+
             foreach (var boolFunc in context.BoolExpressions.SelectMany(p => p.GenerateStateFull(context, ifFunc, false))) // does not change info
             {
                 ifFunc.ParamValues[0] = boolFunc;
@@ -106,32 +120,31 @@ namespace ExprGenrator
 
                 ifFunc.Info.States = generatorFunc.Info.States;
                 ifFunc.Info.Scope = inScope;
-                
-                if (ifFunc.Info.Scope.Count >= ifFunc.Parent.Info.Scope.Count)
-                {
-                    throw new Exception("Wrong");
-                }
 
-                foreach (var voidFuncIfTrue in context.VoidExpressions.SelectMany(p => p.GenerateStateFull(context, ifFunc, false))) //first param
+                Contract.Assert(ifFunc.Info.Scope.Count < ifFunc.Parent.Info.Scope.Count);              
+
+                // IN SCOPE
+                foreach (var voidFuncIfTrue in context.VoidExpressions.OfType<SwapFunctionExpression>().SelectMany(p => p.GenerateStateFull(context, ifFunc, false))) //first param
                 {
-                    ifFunc.ParamValues[1] = voidFuncIfTrue;
-                    
+                    ifFunc.ParamValues[1] = voidFuncIfTrue;                    
                     ifFunc.Info.Set(voidFuncIfTrue.Info); // voidFuncIfTrue contains alewady if
-
                     ifFunc.Info.States = voidFuncIfTrue.Info.States;
                     
                     yield return ifFunc;
                     
                     ifFunc.Info.Scope = outScope;
 
-                    foreach (var voidFuncIfFalse in context.VoidExpressions.SelectMany(p => p.GenerateStateFull(context, ifFunc, false))) //first param
+                    // OUT SCOPE
+                    foreach (var voidFuncIfFalse in context.VoidExpressions.OfType<SwapFunctionExpression>().SelectMany(p => p.GenerateStateFull(context, ifFunc, false))) //first param
                     {
                         ifFunc.ParamValues[2] = voidFuncIfFalse;
                         ifFunc.Info.Set(voidFuncIfFalse.Info);
                         ifFunc.Info.States = voidFuncIfFalse.Info.States;
                         yield return ifFunc;
-                        
-                        foreach (var nextVoidFunc in context.VoidExpressions.SelectMany(p => p.GenerateStateFull(context, ifFunc, true))) // then NEXT
+
+                        //ifFunc.Info.Scope = ifFunc.Parent.Info.Scope; //
+
+                        foreach (var nextVoidFunc in context.VoidExpressions.OfType<IfElseFunctionExpression>().SelectMany(p => p.GenerateStateFull(context, ifFunc, true))) // then NEXT
                         {
                             ifFunc.Next = nextVoidFunc;
                             ifFunc.Info.Set(nextVoidFunc.Info);
@@ -152,20 +165,25 @@ namespace ExprGenrator
                     ifFunc.Next = null;
                     ifFunc.Info.Set(generatorFunc.Info);
                     ifFunc.Info.IfCount++;
+                    ifFunc.Info.IfDepth = ifFunc.Parent.Info.IfDepth + 1;
                     ifFunc.Info.States = generatorFunc.Info.States;
-                    ifFunc.Info.Scope = inScope;
+                    ifFunc.Info.IfExecCount = generatorFunc.Info.IfExecCount + ifFunc.Parent.Info.Scope.Count;
+                    ifFunc.Info.Scope = inScope; //??
                 }
 
                 ifFunc.ParamValues[0] = null;
                 ifFunc.ParamValues[1] = null;
                 ifFunc.Info.Set(generatorFunc.Info);
                 ifFunc.Info.IfCount++;
+                ifFunc.Info.IfDepth = ifFunc.Parent.Info.IfDepth + 1;
+                ifFunc.Info.IfExecCount = generatorFunc.Info.IfExecCount + ifFunc.Parent.Info.Scope.Count;
                 ifFunc.Next = null;
             }
         }
         public bool CanHaveNext => true;
     }
 
+    // If(boolExpr, whenTrueExpr, whenFalseExpr)
     public class IfElseFunction : BaseFunction
     {
         public override string Name => "ifElse";
@@ -187,7 +205,7 @@ namespace ExprGenrator
 
             if ((bool)ParamValues[0].Eval())
             {
-                ParamValues[1].Eval();
+                ParamValues[1]?.Eval();
             }
             else
             {

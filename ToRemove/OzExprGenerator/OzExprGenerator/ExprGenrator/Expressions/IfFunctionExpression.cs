@@ -9,7 +9,8 @@ namespace ExprGenrator
         public int Max { get; set; } = int.MaxValue;
         public int MaxDepth { get; set; } = int.MaxValue;
         public int MaxExec { get; set; } = int.MaxValue;
-        public IfFunctionExpression(int max)
+        public int MaxConsecutive { get; set; }
+        public IfFunctionExpression(int max = int.MaxValue)
         {
             this.Max = max;
         }
@@ -85,6 +86,15 @@ namespace ExprGenrator
             ifFunc.Info.IfExecCount = generatorFunc.Info.IfExecCount + ifFunc.Parent.Info.Scope.Count;
             if (ifFunc.Info.IfExecCount > this.MaxExec) yield break;
 
+            ifFunc.Info.ConsecutiveSwapCount = 1;
+            if (ifFunc.Before is IfFunction)
+            {
+                if (ifFunc.Before.Info.ConsecutiveSwapCount >= MaxConsecutive)
+                    yield break;
+
+                ifFunc.Info.ConsecutiveSwapCount = ifFunc.Before.Info.ConsecutiveSwapCount + 1;
+            }
+
             foreach (var boolFunc in context.BoolExpressions.SelectMany(p => p.GenerateStateFull(context, ifFunc, false))) // does not change info
             {
                 ifFunc.ParamValues[0] = boolFunc;
@@ -118,7 +128,7 @@ namespace ExprGenrator
                     //ifFunc.Info.StateHistory = voidFuncIfTrue.Info.StateHistory;
 
                     yield return ifFunc;
-                    
+
                     foreach (var nextVoidFunc in context.VoidExpressions.OfType<IfFunctionExpression>().SelectMany(p => p.GenerateStateFull(context, ifFunc, true))) // then NEXT
                     {
                         ifFunc.Next = nextVoidFunc;

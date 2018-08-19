@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace ExprGenrator
 {
     public static class ExecutionCounter
@@ -26,7 +25,7 @@ namespace ExprGenrator
                 }
             };
 
-            foreach (var permuted in list.Permute())
+            foreach (var permuted in context.InputStates)
             {
                 ((ListConstant)context.List).Value = permuted.ToArray();
                 func.Eval();
@@ -55,7 +54,7 @@ namespace ExprGenrator
                 }
             };
 
-            foreach (var permuted in list.Permute())
+            foreach (var permuted in context.InputStates)
             {
                 ((ListConstant)context.List).Value = permuted.ToArray();
                 func.Eval();
@@ -93,7 +92,7 @@ namespace ExprGenrator
                 }
             };
 
-            foreach (var permuted in list.Permute())
+            foreach (var permuted in context.InputStates)
             {
                 ((ListConstant)context.List).Value = permuted.ToArray();
                 func.Eval();
