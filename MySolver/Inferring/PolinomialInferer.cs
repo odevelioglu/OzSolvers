@@ -42,6 +42,16 @@ namespace MySolver.Inferring
             return new Poli(sol);
         }
 
+        public Poli InternalInfer(double[] b, int[] indexes)
+        {
+            var A = this.CreateMatrix(indexes);
+
+            var sol = MatrixSolve(A, b);
+            //var res = sol.ToString();
+
+            return new Poli(sol);
+        }
+
         public static double[] MatrixSolve(Matrix<double> A, double[] b)
         {
             var B = Vector<double>.Build;
@@ -52,7 +62,29 @@ namespace MySolver.Inferring
 
             return sol.AsArray();
         }
-        
+
+        private Matrix<double> CreateMatrix(int[] indexes)
+        {
+            var M = Matrix<double>.Build;
+
+            var n = indexes.Length;
+
+            var mat = new double[n, n];
+            for (int c = 0; c < n; c++)            
+            {
+                for (int r = 0; r < n; r++)                
+                {
+                    mat[c, r] = c == 0 && r == 0 ? 1 : Math.Pow(indexes[c], r);
+                }
+            }
+
+            var matrix = M.DenseOfArray(mat);
+
+            var tmp = matrix.ToString();
+
+            return matrix;
+        }
+
         private Matrix<double> CreateMatrix(int n)
         {
             var M = Matrix<double>.Build;
@@ -68,7 +100,7 @@ namespace MySolver.Inferring
 
             var matrix = M.DenseOfArray(mat); 
 
-            //var tmp = matrix.ToString();
+            var tmp = matrix.ToString();
 
             return matrix;
         }
