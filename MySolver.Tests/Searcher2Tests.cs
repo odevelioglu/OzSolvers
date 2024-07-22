@@ -58,7 +58,7 @@ namespace MySolver.Tests
             Console.WriteLine("NumberOfVerifiedSolutions: " + searcher.NumberOfVerifiedSolutions);
             Console.WriteLine("Elapsed time: " + watch.ElapsedMilliseconds);
 
-            Assert.AreEqual("((b + (10 * a)) * (d + (c * 10)))", searcher.FinalResults[0].ToString());
+            Assert.AreEqual("(((a * 10) + b) * ((10 * c) + d))", searcher.FinalResults[0].ToString());
             //Assert.AreEqual("((10 ^ 2) * (a * c)) + (10 * ((b * c) + (a * d))) + (b * d) ", searcher.FinalResults[0].ToString());
         }
 

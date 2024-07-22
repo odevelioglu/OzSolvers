@@ -12,10 +12,42 @@ namespace OzAlgo.LoopSolver
         public LoopGroupSolver2() { }
 
         /// <summary>
+        /// Find all possible groupings
         /// 1,2,3,1,2,1 => (1,2,3),(1,2),(1)
         ///             => (1,2),(3,1),(2,1)
         ///             => (1,2,3),(1,2,1)
         ///             => etc...
+        /// 
+        /// len of list = C
+        /// 
+        /// for n:1..En                                                             [eq5]
+        ///   for m:1..n*kpp + dpp
+        ///     list[i] = k*n*m + d*m + kp*n + dp    
+        /// 
+        /// n=1 => m:1..1*kpp + dpp => count: 1*kpp + dpp                           [eq3]
+        /// n=2 => m:1..2*kpp + dpp => count: 2*kpp + dpp
+        /// n=3 => m:1..3*kpp + dpp => count: 3*kpp + dpp
+        /// ....   ....                  ...   
+        /// n=En=> m:1..En*kpp+ dpp => count: En*kpp+ dpp                           [eq2]
+        ///                        SUM(count) = En*(En+1)/2 * kpp + En * dpp = C    [eq1]
+        /// 
+        /// 
+        /// 
+        /// 
+        /// var ptr = 0;
+        /// for (var n = 1; n <= En; n++)
+        /// {
+        ///     for (var m = 1; m <= kpp*n + dpp; m++)
+        ///     {
+        ///         model.AddConstraint("eq" + (ptr + 10),
+        ///             list[ptr] == k*n*m + d*m + kp*n + dp);
+        ///
+        ///         ptr++;
+        ///     }
+        /// }
+        /// 
+        /// 
+        /// 
         /// </summary>
         public List<LoopGroupEquation2> Solve(int C)
         {
